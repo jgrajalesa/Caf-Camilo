@@ -9,8 +9,14 @@ tipo_cafe = st.radio("Selecciona el tipo de café:", ("Café Pergamino", "Café 
 # Ingreso del peso del café en gramos
 peso_cafe = st.number_input("Ingresa el peso del café en gramos:", min_value=1, value=1000)
 
-# Ingreso del porcentaje de pérdida de peso
-porcentaje_perdida = st.number_input("Ingresa el porcentaje de pérdida de peso (%):", min_value=0, max_value=100, value=10)
+# Ingreso del porcentaje de pérdida de peso (ahora acepta decimales)
+porcentaje_perdida = st.number_input(
+    "Ingresa el porcentaje de pérdida de peso (%):", 
+    min_value=0.0,  # Permite valores decimales
+    max_value=100.0, 
+    value=10.0,  # Valor por defecto
+    step=0.1  # Permite incrementos/decrementos de 0.1
+)
 
 # Ingreso del precio de tostado por kilo
 precio_tostado_por_kilo = st.number_input("Ingresa el precio de tostado por kilo (en tu moneda):", min_value=0.0, value=5.0)
