@@ -28,8 +28,8 @@ if usar_calculo_automatico == "Calcular automáticamente":
     st.write("Para calcular automáticamente, ingresa el peso inicial y final del café.")
     
     # Ingreso del peso inicial y final del café
-    peso_inicial = st.number_input("Peso inicial del café (en gramos):", min_value=1, value=1000, help="Peso del café antes de perder parte de su masa.")
-    peso_final = st.number_input("Peso final del café (en gramos, después de la pérdida):", min_value=1, value=750, help="Peso del café después de la pérdida de agua y cáscara.")
+    peso_inicial = st.number_input("Peso inicial del café (en gramos):", min_value=1.0, value=1000.0, help="Peso del café antes de perder parte de su masa.")
+    peso_final = st.number_input("Peso final del café (en gramos, después de la pérdida):", min_value=1.0, value=750.0, help="Peso del café después de la pérdida de masa.")
 
     # Cálculo automático del porcentaje de pérdida de peso
     porcentaje_perdida_calculado = (1 - peso_final / peso_inicial) * 100
@@ -53,7 +53,7 @@ else:
 # Reordenando el flujo de entrada de datos:
 
 # 1. Ingreso del peso del café
-peso_cafe = st.number_input("Ingresa el peso del café en gramos:", min_value=1, value=1000, help="Peso total del café que compraste en su estado original.")
+peso_cafe = st.number_input("Ingresa el peso del café en gramos:", min_value=1.0, value=1000.0, help="Peso total del café que compraste en su estado original.")
 
 # 2. Ingreso del precio del café total
 precio_cafe = st.number_input("Ingresa el precio total del café (en tu moneda):", min_value=0.0, value=10.0, help="Precio que pagaste por el café sin tostar.")
