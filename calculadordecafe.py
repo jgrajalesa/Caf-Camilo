@@ -3,47 +3,66 @@ import streamlit as st
 # Título de la aplicación
 st.title("☕ Calculadora de Precio Real de Café")
 
-# Imagen decorativa (puedes agregar una imagen relacionada con el café)
-st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Coffee_Beans.jpg/800px-Coffee_Beans.jpg", use_column_width=True)
+# Imagen decorativa
+st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Coffee_Beans.jpg/800px-Coffee_Beans.jpg", use_container_width=True)
+
+# Instrucciones iniciales
+st.markdown("""
+### Bienvenido a la calculadora de café ☕
+Aquí podrás calcular el precio real de tu café después del tostado, teniendo en cuenta la pérdida de peso durante el proceso.
+
+**Por favor sigue los siguientes pasos:**
+1. Ingresa el precio total del café que pagaste.
+2. Establece el costo por gramo del tostado.
+3. Si deseas, puedes calcular automáticamente el porcentaje de pérdida de peso ingresando el peso inicial y final de tu café, o si prefieres, puedes ingresar el porcentaje manualmente.
+""")
 
 # Sección para calcular el porcentaje de pérdida de peso automáticamente
 st.subheader("🔄 Calculadora de Porcentaje de Pérdida de Peso")
 
-# Ingreso del peso inicial y final del café
-peso_inicial = st.number_input("Peso inicial del café (en gramos):", min_value=1, value=1000)
-peso_final = st.number_input("Peso final del café (después de la pérdida de peso) (en gramos):", min_value=1, value=750)
+# Opción de calcular el porcentaje automáticamente o ingresarlo manualmente
+usar_calculo_automatico = st.radio(
+    "¿Cómo deseas calcular el porcentaje de pérdida de peso?",
+    ("Calcular automáticamente", "Ingresar porcentaje manualmente")
+)
 
-# Cálculo automático del porcentaje de pérdida de peso
-porcentaje_perdida_calculado = (1 - peso_final / peso_inicial) * 100
-st.write(f"Porcentaje de pérdida de peso calculado: {porcentaje_perdida_calculado:.2f}%")
+if usar_calculo_automatico == "Calcular automáticamente":
+    # Si el usuario opta por calcular automáticamente el porcentaje, pedimos los pesos inicial y final
+    st.write("Para calcular automáticamente, ingresa el peso inicial y final del café.")
+    
+    # Ingreso del peso inicial y final del café
+    peso_inicial = st.number_input("Peso inicial del café (en gramos):", min_value=1, value=1000, help="Peso del café antes de perder parte de su masa.")
+    peso_final = st.number_input("Peso final del café (en gramos, después de la pérdida):", min_value=1, value=750, help="Peso del café después de la pérdida de agua y cáscara.")
 
-# Opción de calcular el porcentaje manualmente
-usar_calculo_automatico = st.checkbox("Usar cálculo automático del porcentaje de pérdida de peso", value=True)
+    # Cálculo automático del porcentaje de pérdida de peso
+    porcentaje_perdida_calculado = (1 - peso_final / peso_inicial) * 100
+    st.write(f"Porcentaje de pérdida de peso calculado: {porcentaje_perdida_calculado:.2f}%")
 
-# Bloqueamos el input de porcentaje de pérdida de peso si se usa el cálculo automático
-if usar_calculo_automatico:
-    porcentaje_perdida = porcentaje_perdida_calculado
-    st.write(f"El porcentaje de pérdida de peso utilizado será: {porcentaje_perdida:.2f}%")
+    porcentaje_perdida = porcentaje_perdida_calculado  # Utilizamos el porcentaje calculado automáticamente
+
 else:
+    # Si el usuario decide ingresar el porcentaje manualmente
+    st.write("Ingresa el porcentaje de pérdida de peso según tu experiencia o estimación.")
     # Ingreso manual del porcentaje de pérdida
     porcentaje_perdida = st.number_input(
         "Ingresa el porcentaje de pérdida de peso (%):", 
         min_value=0.0, 
         max_value=100.0, 
         value=10.0, 
-        step=0.1
+        step=0.1,
+        help="Porcentaje de pérdida de peso durante el tostado."
     )
 
 # Reordenando el flujo de entrada de datos:
 
 # 1. Ingreso del peso del café
-peso_cafe = st.number_input("Ingresa el peso del café en gramos:", min_value=1, value=1000)
+peso_cafe = st.number_input("Ingresa el peso del café en gramos:", min_value=1, value=1000, help="Peso total del café que compraste en su estado original.")
 
 # 2. Ingreso del precio del café total
-precio_cafe = st.number_input("Ingresa el precio del café total (en tu moneda):", min_value=0.0, value=10.0)
+precio_cafe = st.number_input("Ingresa el precio total del café (en tu moneda):", min_value=0.0, value=10.0, help="Precio que pagaste por el café sin tostar.")
 
 # 3. Ingreso del precio del tostado por gramo
-precio_tostado_por_gramo = st.number_input("Ingresa el precio del tostado por gramo (en tu moneda):", min_value=0.0, value=0.005)
+precio_tostado_por_gramo = st.number_input("Ingresa el precio del tostado por gramo (en tu moneda):", min_value=0.0, value=0.005, help="Costo del proceso de tostado por gramo de café.")
 
 # 4. El porcentaje de pérdida de peso ya está calculado o ingresado
 
@@ -73,5 +92,5 @@ st.write(f"Precio por gramo después del tostado: {precio_real_por_gramo:.4f} {s
 # Decoración con texto adicional para hacerlo más atractivo
 st.markdown("""
 ---
-### ☕ Código por Juan Grajales para Berraquita Café.
+### ☕ Código por Juan Grajales para Berraquita Café
 """)
