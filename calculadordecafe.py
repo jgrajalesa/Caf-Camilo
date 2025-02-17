@@ -3,13 +3,10 @@ import streamlit as st
 # Título de la aplicación
 st.title("☕ Calculadora de Precio Real de Café")
 
-# Imagen decorativa
-st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Coffee_Beans.jpg/800px-Coffee_Beans.jpg", use_container_width=True)
-
 # Instrucciones iniciales
 st.markdown("""
 ### Bienvenido a la calculadora de café ☕
-Aquí podrás calcular el precio real de tu café después del tostado, teniendo en cuenta la pérdida de peso durante el proceso.
+Aquí podrás calcular el precio real de tu café antes y después del tostado, teniendo en cuenta la pérdida de peso durante el proceso.
 
 **Por favor sigue los siguientes pasos:**
 1. Ingresa el precio total del café que pagaste.
